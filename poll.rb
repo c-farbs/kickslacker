@@ -15,7 +15,7 @@ include ActionView::Helpers::DateHelper
 
 cache = Dalli::Client.new
 
-doc = Nokogiri::HTML(open(ENV['KICKSTARTER_URL']))
+doc = Nokogiri::HTML(open(ENV['http://critrole.com/animated']))
 
 title = doc.css('.title h2 a').first.content
 
@@ -32,9 +32,9 @@ if backers > 0
   if old_count < backers
 
     payload= {
-      text: "New Backers on <#{ENV['KICKSTARTER_URL']}|#{title}>",
+      text: "New Backers on <#{ENV['http://critrole.com/animated']}|#{title}>",
       icon_url: "https://www.kickstarter.com/download/kickstarter-logo-k-color.png",
-      channel: ENV['SLACK_ROOM'],
+      channel: ENV['https://hooks.slack.com/services/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'],
       username: 'Kickstarter',
       attachments: [
         {
@@ -56,7 +56,7 @@ if backers > 0
       ]
     }
 
-    Net::HTTP.post_form(URI.parse(ENV['SLACK_URL']), {payload: JSON.dump(payload)})
+    Net::HTTP.post_form(URI.parse(ENV['https://hooks.slack.com/services/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']), {payload: JSON.dump(payload)})
 
     cache.set('backer_count', backers)
 
